@@ -109,6 +109,41 @@ class DropboxClient
     }
 
     /**
+     * Get the Dropbox-API-Path-Root Header.
+     *
+     * @param string|null $namespaceId Namespace
+     *
+     * @return array Dropbox-API-Path-Root Header
+     */
+    protected function buildNamespaceIdHeader(string $namespaceId = null): array
+    {
+        if(!is_string($namespaceId)) {
+            return [];
+        }
+
+        return ['Dropbox-API-Path-Root' => json_encode([
+            '.tag' => 'namespace_id',
+            'namespace_id' => $namespaceId,
+        ])];
+    }
+
+    /**
+     * Get the Dropbox-API-Select-User Header.
+     *
+     * @param string|null $teamUserId Team Member ID
+     *
+     * @return array Dropbox-API-Select-User Header
+     */
+    protected function buildTeamUserIdHeader(string $teamUserId = null): array
+    {
+        if(!is_string($teamUserId)) {
+            return [];
+        }
+
+        return ['Dropbox-API-Select-User' => $teamUserId];
+    }
+
+    /**
      * Build URL for the Request
      *
      * @param string $endpoint Relative API endpoint
@@ -217,6 +252,8 @@ class DropboxClient
         $headers = array_merge(
             $this->buildAuthHeader($request->getAccessToken()),
             $this->buildContentTypeHeader($request->getContentType()),
+            $this->buildNamespaceIdHeader($request->getNamespaceId()),
+            $this->buildTeamUserIdHeader($request->getTeamUserId()),
             $request->getHeaders()
         );
 

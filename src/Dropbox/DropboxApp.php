@@ -30,17 +30,34 @@ class DropboxApp
     protected $accessToken;
 
     /**
+     * The Team User ID
+     *
+     * @var string
+     */
+    protected $teamUserId;
+
+    /**
+     * The Namespace ID
+     *
+     * @var string
+     */
+    protected $namespaceId;
+
+    /**
      * Create a new Dropbox instance
      *
      * @param string $clientId     Application Client ID
      * @param string $clientSecret Application Client Secret
      * @param string $accessToken  Access Token
      */
-    public function __construct($clientId, $clientSecret, $accessToken = null)
+    public function __construct($clientId, $clientSecret, $accessToken = null, $teamUserId = null, $namespaceId = null)
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->accessToken = $accessToken;
+        $this->teamUserId = $teamUserId;
+        $this->namespaceId = $namespaceId;
+
     }
 
     /**
@@ -71,5 +88,25 @@ class DropboxApp
     public function getAccessToken()
     {
         return $this->accessToken;
+    }
+
+    /**
+     * Get the Team User ID
+     *
+     * @return string|null
+     */
+    public function getTeamUserId()
+    {
+        return $this->teamUserId;
+    }
+
+    /**
+     * Get the Namespace ID
+     *
+     * @return string|null
+     */
+    public function getNamespaceId()
+    {
+        return $this->namespaceId;
     }
 }

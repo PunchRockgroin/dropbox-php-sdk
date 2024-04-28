@@ -77,6 +77,20 @@ class DropboxRequest
      */
     protected $validateResponse = true;
 
+    /**
+     * The Team User ID
+     *
+     * @var string
+     */
+    protected $teamUserId = null;
+
+    /**
+     * The Namespace ID
+     *
+     * @var string
+     */
+    protected $namespaceId = null;
+
 
     /**
      * Create a new DropboxRequest instance
@@ -337,6 +351,50 @@ class DropboxRequest
     public function validateResponse()
     {
         return $this->validateResponse;
+    }
+
+    /**
+     * Gets the Team User Id
+     *
+     * @return string|null
+     */
+    public function getTeamUserId(): ?string
+    {
+        return $this->teamUserId;
+    }
+
+    /**
+     * Sets Team User ID
+     *
+     * @param string|null $teamUserId
+     * @return $this
+     */
+    public function setTeamUserId(?string $teamUserId): DropboxRequest
+    {
+        $this->teamUserId = $teamUserId;
+        return $this;
+    }
+
+    /**
+     * Sets Namespace ID
+     *
+     * @return string|null
+     */
+    public function getNamespaceId(): ?string
+    {
+        return $this->namespaceId;
+    }
+
+    /**
+     * Sets Namespace ID
+     *
+     * @param string|null $namespaceId
+     * @return $this
+     */
+    public function setNamespaceId(?string $namespaceId): DropboxRequest
+    {
+        $this->namespaceId = $namespaceId;
+        return $this;
     }
 
     /**

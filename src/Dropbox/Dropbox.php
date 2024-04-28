@@ -64,6 +64,10 @@ class Dropbox
      */
     protected $accessToken;
 
+    protected $namespaceId;
+
+    protected $teamUserId;
+
     /**
      * Dropbox Client
      *
@@ -105,7 +109,9 @@ class Dropbox
         $config = array_merge([
             'http_client_handler' => null,
             'random_string_generator' => null,
-            'persistent_data_store' => null
+            'persistent_data_store' => null,
+            'teamUserId' => $app->getTeamUserId(),
+            'namespaceId' => $app->getNamespaceId(),
         ], $config);
 
         //Set the app
@@ -113,6 +119,10 @@ class Dropbox
 
         //Set the access token
         $this->setAccessToken($app->getAccessToken());
+        //set Team User ID
+        $this->setTeamUserId($app->getTeamUserId());
+        // Set Namespace ID
+        $this->setNamespaceId($app->getNamespaceId());
 
         //Make the HTTP Client
         $httpClient = DropboxHttpClientFactory::make($config['http_client_handler']);
@@ -264,6 +274,12 @@ class Dropbox
 
         //Make a DropboxRequest object
         $request = new DropboxRequest($method, $endpoint, $accessToken, $endpointType, $params);
+
+        // Set Namespace ID
+        $request->setNamespaceId($this->getNamespaceId());
+
+        // Set Team User Id
+        $request->setTeamUserId($this->getTeamUserId());
 
         //Make a DropboxResponse object if a response should be saved to the file
         $response = $responseFile ? new DropboxResponseToFile($request, $responseFile) : null;
@@ -1288,4 +1304,41 @@ class Dropbox
         //Return the decoded body
         return $body;
     }
+
+    /**
+     * @param mixed $namespaceId
+     * @return Dropbox
+     */
+    public function setNamespaceId($namespaceId)
+    {
+        $this->namespaceId = $namespaceId;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNamespaceId()
+    {
+        return $this->namespaceId;
+    }
+
+    /**
+     * @param mixed $teamUserId
+     * @return Dropbox
+     */
+    public function setTeamUserId($teamUserId)
+    {
+        $this->teamUserId = $teamUserId;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTeamUserId()
+    {
+        return $this->teamUserId;
+    }
+
 }
