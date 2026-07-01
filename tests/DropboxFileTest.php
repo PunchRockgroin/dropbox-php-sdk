@@ -7,21 +7,20 @@ class DropboxFileTest extends TestCase
 {
     protected $stream;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->stream = fopen(__FILE__, 'r');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         fclose($this->stream);
     }
 
     public function testGetStreamOrFilePathReturnsStringWhenConstructedNormally()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|DropboxFile $dropboxFile */
         $dropboxFile = $this->getMockBuilder(DropboxFile::class)
-            ->setMethods(['getFilePath', 'getStream', 'isCreatedFromStream'])
+            ->onlyMethods(['getFilePath', 'getStream', 'isCreatedFromStream'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -46,9 +45,8 @@ class DropboxFileTest extends TestCase
 
     public function testGetStreamOrFilePathReturnsStringWhenConstructedWithStream()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|DropboxFile $dropboxFile */
         $dropboxFile = $this->getMockBuilder(DropboxFile::class)
-            ->setMethods(['getFilePath', 'getStream', 'isCreatedFromStream'])
+            ->onlyMethods(['getFilePath', 'getStream', 'isCreatedFromStream'])
             ->disableOriginalConstructor()
             ->getMock();
 
